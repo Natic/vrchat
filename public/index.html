@@ -1,4 +1,5 @@
-<html>
+ <html>
+
   <head>
     <meta charset="utf-8">
     <title>VR Chat</title>
@@ -12,7 +13,7 @@
     <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script>
     <script src="https://unpkg.com/aframe-particle-system-component@1.0.5/dist/aframe-particle-system-component.min.js"></script>
     <script src="/js/spawn-in-circle.component.js"></script>
-
+   
     <script>
       // Define custom schema for syncing avatar color, set by random-color
       var avatarSchema = {
@@ -33,18 +34,21 @@
   <body>
 
     <a-scene networked-scene="
-      dynamic-room
+      room: basic;
       adapter: easyrtc;
       audio: true;
       debug: true;
     ">
+      
       <a-assets>
 
-        <img id="grid" src="https://img.gs/bbdkhfbzkk/stretch/https://i.imgur.com/25P1geh.png" crossorigin="anonymous">
-        <img id="sky" src="https://img.gs/bbdkhfbzkk/2048x2048,stretch/http://i.imgur.com/WqlqEkq.jpg" crossorigin="anonymous" />
+    <video src="https://cdn.glitch.com/6c56869b-7018-489f-8231-6e100572595e%2Ffoo.mp4?1523209179644" id="somevideo" autoplay="true"></video>
+  <video src="https://cdn.glitch.com/6c56869b-7018-489f-8231-6e100572595e%2FkidOYO-%20Team%20JAZZ.mp4?1523212401886" id="jazz" autoplay="true"></video>
+        <img id="grid" src="https://cdn.glitch.com/6c56869b-7018-489f-8231-6e100572595e%2FGrass0001_1_270.jpg?1522000017942" crossorigin="anonymous">
+        <img id="sky" src="https://cdn.glitch.com/6c56869b-7018-489f-8231-6e100572595e%2Flight%2Bblue.jpg?1521999866440" crossorigin="anonymous" />
 
         <!-- Templates -->
-
+        <a-box position= "2 0 0" scale="2 1 2"></a-box>
         <!-- Avatar -->
         <script id="avatar-template" type="text/html">
           <a-entity class="avatar" networked-audio-source>
@@ -77,27 +81,54 @@
                   position="0 0 -1"
                   scale="0.2 0.2 0.2"
                 ></a-sphere>
-                <a-box class="legs"
-                color=#000"
-                position="0.16 -7 1"
-                scale = "1 6 1"
-                </a-box>
-                <a-box class="legs"
-                color=#000"
-                position="2.5 -0.04 1"
-                scale="1 1 1"
-                </a-box>
-              </a-sphere>
-            </a-entity>
-          </a-entity>
         </script>
-
-        <!-- /Templates -->
+        <script id="table" type="text/html">
+        <a-entity class="object"> 
+        <a-box class="tabletop" 
+        src="https://images2.roomstogo.com/is/image/roomstogo/dr_tbl_42193502_riverdale_leg~Riverdale-Cherry-Rectangle-Dining-Table.jpeg?$PDP_Primary_936x650$"
+        color="#FFFFFF"
+        scale="3 1 3"
+        position="0 .5 0"
+        ></a-box>
+        <a-box class="leg1">
+        color="#FFFFFF"
+        scale="0.5 0.5 0.5"
+        position="-0.25 0 -0.25"
+        </a-box>
+        </script>
+                <script id="stairs" type="text/html">
+        <a-entity class="object"> 
+        <a-box class="stair1" 
+        color="#FFFFFF"
+        scale="3 1 3"
+        position="0 10 0"
+        ></a-box>
+        <a-box class="stair2">
+        color="#FFFFFF"
+        scale="0.5 0.5 0.5"
+        position="-0.25 7 0"
+        </a-box>
+        <a-box class="stair3">
+        color="#FFFFFF"
+        scale="0.5 0.5 0.5"
+        position="0 5 0"
+        </a-box>
+        <a-box class="stair4">
+        color="#FFFFFF"
+        scale="0.5 0.5 0.5"
+        position="0.25 3 0"
+        </a-box>
+        </script>
       </a-assets>
-
+      
+    <a-video scale="3 3 3" width="6" height="4" length="3" position = "0, 5, 0" src="#somevideo" video-illumination="foo: bar" ></a-video>
+       <a-video scale="3 3 3" width="6" height="4" length="3" position = "20, 5, 0" src="#jazz" video-illumination="foo: bar" ></a-video>
+      <a-entity https://vr-chat-aframe.glitch.me/
+                id="stair" networked="template:#stairs;showLocalTemplate:false;"></a-entity>
+       <a-animation attribute="position" from="1 1 1" to="2 4 -8"></a-animation>
       <a-entity id="player" networked="template:#avatar-template;showLocalTemplate:false;" camera spawn-in-circle="radius:3;" position="0 1.3 0" wasd-controls look-controls>
       </a-entity>
-
+      <a-entity id="tables" networked="template:#table;showLocalTemplate:false;"></a-entity>
       <a-entity position="0 0 0"
         geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0"
         material="src: #grid; repeat: 10000 10000; transparent: true; metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;"></a-entity>
@@ -106,7 +137,7 @@
       <a-entity light="color: #ffaaff; intensity: 1.5" position="5 5 5"></a-entity>
 
       <a-sky src="#sky" rotation="0 -90 0"></a-sky>
-      <a-entity id="particles" particle-system="preset: snow"></a-entity>
+      <a-entity id="partwicles" particle-system="preset: snow"></a-entity>
     </a-scene>
 
     <script>
@@ -118,9 +149,8 @@
         particles.parentNode.removeChild(particles);
       }
     </script>
-  </body>
-</html>);
 
-</script>
-</body>
+ 
+  </body>
 </html>
+    

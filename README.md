@@ -1,3 +1,2 @@
-# Networked-Aframe Starter Pack
-
+omegalul
 VR Chat Aframe
